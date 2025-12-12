@@ -28,7 +28,7 @@ var init = function (window) {
         function drawCircle() {
         circle = draw.randomCircleInArea(canvas, true, true,"#999", 2);
         physikz.addRandomVelocity(circle, canvas,5, 5);
-        viewaddChild(circle);
+        view.addChild(circle);
         circles.push(circle);
         }
 
@@ -61,11 +61,11 @@ var init = function (window) {
             }
             
             // TODO 5 : Call game.checkCirclePosition() on your circles
-        game.checkCirclePosition(circle[0]);
-        game.checkCirclePosition(circle[1]);
-        game.checkCirclePosition(circle[2]);
-        game.checkCirclePosition(circle[3]);
-        game.checkCirclePosition(circle[4]);
+        game.checkCirclePosition(circles[0]);
+        game.checkCirclePosition(circles[1]);
+        game.checkCirclePosition(circles[2]);
+        game.checkCirclePosition(circles[3]);
+        game.checkCirclePosition(circles[4]);
         
         
         requestAnimationFrame(update);
@@ -91,11 +91,23 @@ var init = function (window) {
             }
             
             // TODO 6 : YOUR CODE STARTS HERE //////////////////////
-            
-
+            game.checkCirclePosition = function(circle) {
+                if (circle.x > canvas.width) {
+                    circle.x = 0;
+                }
+            if (circle.x < 0) {
+                circle.x = canvas.width;
+            } 
+            if (circle.y > canvas.height) {
+                circle.y = 0;
+            }
+            if (circle.y < 0) {
+                circle.y = canvas.height;
+            }
+        }
 
             // YOUR TODO 6 CODE ENDS HERE //////////////////////////
-        }
+        
         
         /////////////////////////////////////////////////////////////
         // --- NO CODE BELOW HERE  --- DO NOT REMOVE THIS CODE --- //
@@ -118,4 +130,5 @@ if((typeof process !== 'undefined') &&
     (typeof process.versions.node !== 'undefined')) {
     // here, export any references you need for tests //
     module.exports = init;
+}
 }
